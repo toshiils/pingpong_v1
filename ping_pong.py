@@ -1,6 +1,7 @@
 from pygame import *
-'''Необходимые классы'''
+#from PyQt5 import *
 
+#необходимые классы
 
 #класс-родитель для спрайтов
 class GameSprite(sprite.Sprite):
@@ -45,7 +46,8 @@ game = True
 finish = False
 clock = time.Clock()
 FPS = 60
-lifes_1 = 4
+lifes_1 = 3
+lifes_2 = 3
 ball_lost = False
 
 
@@ -59,7 +61,7 @@ font.init()
 font = font.Font(None, 35)
 lose1 = font.render('PLAYER 1 LOSE!', True, (180, 0, 0))
 lose2 = font.render('PLAYER 2 LOSE!', True, (180, 0, 0))
-lifes1_font = font.render(str(lifes_1), True, (180, 0, 0))
+#lifes1_font = font.render(str(lifes_1), True, (180, 0, 0))
 
 
 speed_x = 3
@@ -93,24 +95,36 @@ while game:
             #Уменьшаем число жизней игрока только один раз!
                 lifes_1 -= 1
                 speed_x *= -1
-                #window.blit(lifes1_font, (100, 100))
                 ball_lost = True
             else:
             #Мяч снова внутри игровой зоны, сбрасываем флаг
                 ball_lost = False
 
-        if lifes_1 == 0:
-           finish = True
-           window.blit(lose1, (200, 200))
-           game_over = True
+        if lifes_1 <= 0:
+            finish = True
+            window.blit(lose1, (200, 200))
+            game_over = True
 
 
        #если мяч улетел дальше ракетки, выводим условие проигрыша для второго игрока
         if ball.rect.x > win_width:
+            if not ball_lost:
+                lifes_2 -= 1
+                speed_x *= -1
+                ball_lost = True
+            else:
+                ball_lost = False
+
+        if lifes_2 <= 0:
            finish = True
            window.blit(lose2, (200, 200))
            game_over = True
 
+        lifes1_font = font.render('Жизни игрока 1: ' + str(lifes_1), True, (180, 0, 0))
+        window.blit(lifes1_font, (50, 100))
+
+        lifes2_font = font.render('Жизни игрока 2: ' + str(lifes_2), True, (180, 0, 0))
+        window.blit(lifes2_font, (330, 100))
 
         racket1.reset()
         racket2.reset()
@@ -119,3 +133,4 @@ while game:
 
     display.update()
     clock.tick(FPS)
+
