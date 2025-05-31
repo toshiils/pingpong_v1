@@ -2,10 +2,10 @@ import sys
 from pygame import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QLineEdit, QVBoxLayout
 
-# Цвет фона и размеры окна
+# Цвет фона и размеры окна 
 back = (200, 255, 255)
 win_width = 600
-win_height = 500
+win_height = 500 
 
 # Глобальные переменные
 g_player1_name = 'Игрок 1'
@@ -100,8 +100,8 @@ def start_game():
 
     font.init()
     font_obj = font.Font(None, 35)
-    lose1 = font_obj.render(g_player1_name + ' LOSE!', True, (180, 0, 0))
-    lose2 = font_obj.render(g_player2_name + ' LOSE!', True, (180, 0, 0))
+    lose1 = font_obj.render(g_player1_name + ' проиграл(а)!', True, (180, 0, 0))
+    lose2 = font_obj.render(g_player2_name + ' проиграл(а)!', True, (180, 0, 0))
 
     speed_x = 3
     speed_y = 3
@@ -143,15 +143,15 @@ def start_game():
 
             if lifes_1 <= 0:
                 finish = True
-                window.blit(lose1, (200, 200))
+                window.blit(lose1, (190, 200))
             elif lifes_2 <= 0:
                 finish = True
-                window.blit(lose2, (200, 200))
+                window.blit(lose2, (190, 200))
 
             lifes1_font = font_obj.render(f'Жизни {g_player1_name}: {lifes_1}', True, (180, 0, 0))
             lifes2_font = font_obj.render(f'Жизни {g_player2_name}: {lifes_2}', True, (180, 0, 0))
-            window.blit(lifes1_font, (20, 20))
-            window.blit(lifes2_font, (20, 60))
+            window.blit(lifes1_font, (190, 20))
+            window.blit(lifes2_font, (190, 60))
 
             racket1.reset()
             racket2.reset()
